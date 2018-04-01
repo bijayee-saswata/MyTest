@@ -66,7 +66,7 @@ public class signUpActivity extends AppCompatActivity {
 
                 if(firebaseAuth.getCurrentUser() !=null)
                 {
-                    //Intent
+
                     startActivity(new Intent(signUpActivity.this,MainActivity.class));
                 }
             }
@@ -103,12 +103,11 @@ public class signUpActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-
+                                FirebaseUser user = mAuth.getCurrentUser();
                                 HashMap<String,String> dataMap = new HashMap<String,String>();
                                 dataMap.put("Name" , userName);
                                 dataMap.put("Email" ,Email);
                                 mDatabase.push().setValue(dataMap);
-                                        FirebaseUser user = mAuth.getCurrentUser();
                                 progressBar1.setVisibility(View.INVISIBLE);
                                 Toast.makeText(getApplicationContext(), "Success",
                                         Toast.LENGTH_SHORT).show();

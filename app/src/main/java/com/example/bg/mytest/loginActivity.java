@@ -1,6 +1,8 @@
 package com.example.bg.mytest;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +48,7 @@ public class loginActivity extends AppCompatActivity {
         pass1 =(EditText)findViewById(R.id.lpassword);
         login =(Button) findViewById(R.id.dummy_button);
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+
 
         //function section.....
      fsignUp.setOnClickListener(new View.OnClickListener(){
@@ -95,9 +98,9 @@ public class loginActivity extends AppCompatActivity {
 
     private void signIn()
     {
+
         String user = email1.getText().toString();
         String password = pass1.getText().toString();
-
         if(TextUtils.isEmpty(user) || TextUtils.isEmpty(password))
         {
             Toast.makeText(getApplicationContext(), "Filled are Empty.",
@@ -134,6 +137,22 @@ public class loginActivity extends AppCompatActivity {
 
     }
 
+    public void saveInfo(View view)
+    {
+        SharedPreferences pref = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("userEmail",email1.getText().toString());
+        editor.putString("userPassword",pass1.getText().toString());
+        editor.apply();
+        if(TextUtils.isEmpty(email1.getText().toString()) || TextUtils.isEmpty(pass1.getText().toString()))
+        {
+            Toast.makeText(getApplicationContext(), "Filled are Empty.",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else
+        Toast.makeText(this,"Remember me applied",Toast.LENGTH_SHORT).show();
+
+    }
 
 
    private void updateUI(FirebaseUser currentUser) {

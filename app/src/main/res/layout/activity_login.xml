@@ -58,13 +58,24 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/colorPrimary"
                 android:backgroundTint="@color/colorAccent" />
+
         </LinearLayout>
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Remember me"
+                android:onClick="saveInfo"
+                android:textStyle="italic"
+                android:textColor="@android:color/white"
+                android:gravity="center_horizontal"
+                android:buttonTint="@android:color/holo_orange_dark"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,6 +129,8 @@
 
 
         </LinearLayout>
+
+
 
 
     </FrameLayout>

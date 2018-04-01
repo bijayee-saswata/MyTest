@@ -1,6 +1,8 @@
 package com.example.bg.mytest;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +15,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -28,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         final LinearLayout layout = findViewById(R.id.lay);
-       Button button = (Button) findViewById(R.id.btn);
         setSupportActionBar(toolbar);
 
     /*    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -50,18 +53,12 @@ public class MainActivity extends AppCompatActivity {
         });
 */
         mAuth = FirebaseAuth.getInstance();
+       TextView info= (TextView) findViewById(R.id.info);
+        SharedPreferences pref =getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        String email = pref.getString("userEmail","");
+        String password = pref.getString("userPassword","");
+        info.setText("Email: \n"+email+"Password: \n"+password);
 
-      button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                FirebaseAuth.getInstance().signOut();
-                Snackbar.make(view, "Logout Successfully", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                startActivity(new Intent(MainActivity.this,loginActivity.class));
-
-            }
-        });
     }
 
 
@@ -83,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
+            Toast.makeText(this, "Sign out successfully", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this,loginActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
